@@ -272,7 +272,7 @@ BATT_ID2 2
     -- labels
     -- lcd.drawText(x+12, 154, "Eff(mAh)", SMLSIZE+CUSTOM_COLOR+RIGHT)
     -- local effStr = "Eff(" .. unitLongLabel .. "/mAh)"
-    lcd.drawText(x+12, 154, "Eff(km/Ah)", SMLSIZE+CUSTOM_COLOR+RIGHT)
+    lcd.drawText(x+12, 154, "EffAvg(m/Ah)", SMLSIZE+CUSTOM_COLOR+RIGHT)
     -- lcd.drawText(x+12, 154, effStr, SMLSIZE+CUSTOM_COLOR+RIGHT)
     lcd.drawText(x+95, 154, "Power(W)", SMLSIZE+CUSTOM_COLOR+RIGHT)
     -- data
@@ -282,11 +282,11 @@ BATT_ID2 2
     -- local eff = speed > 2 and (conf.battConf == 3 and battery[7+1] or battery[7])*1000/(speed*conf.horSpeedMultiplier) or 0
     -- eff = ( conf.battConf == 3 and battId == 2) and 0 or eff
     -- lcd.drawNumber(x+12,164,eff,(eff > 99999 and 0 or MIDSIZE)+RIGHT+CUSTOM_COLOR)
-    -- XXX [ms] efficiency - distance in km per consumed Ah
-    local travelDistKm = telemetry.totalDist*unitLongScale*100
-    local eff2 = travelDistKm > 0 and travelDistKm / ((conf.battConf == 3 and battery[10+1] or battery[10]) / 1000) or 0
-    eff2 = ( conf.battConf == 3 and battId == 2) and 0 or eff2
-    lcd.drawNumber(x+12,164,eff2,(eff2 > 99999 and 0 or MIDSIZE)+RIGHT+CUSTOM_COLOR)
+    -- XXX [ms] average efficiency - distance in m per consumed Ah
+    local travelDistM = telemetry.totalDist*unitLongScale*1000
+    local effAvg = travelDistM > 0 and travelDistM / ((conf.battConf == 3 and battery[10+1] or battery[10]) / 1000) or 0
+    effAvg = ( conf.battConf == 3 and battId == 2) and 0 or effAvg
+    lcd.drawNumber(x+12,164,effAvg,(effAvg > 99999 and 0 or MIDSIZE)+RIGHT+CUSTOM_COLOR)
     -- power
     local power = battery[4+battId]*battery[7+battId]*0.01
     lcd.drawNumber(x+95,164,power,MIDSIZE+RIGHT+CUSTOM_COLOR)
